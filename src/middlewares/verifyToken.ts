@@ -1,6 +1,13 @@
 import jwt from "jsonwebtoken";
+import { Request, Response, NextFunction } from "express";
 
-const verifyToken = (req, res, next) => {
+declare module 'express-serve-static-core' {
+    interface Request {
+      user: any;
+    }
+  }
+  
+const verifyToken = (req: Request, res: Response, next: NextFunction) => {
     
     const JWT_SECRET = process.env.JWT_SECRET;
     const token = req.cookies.token;
