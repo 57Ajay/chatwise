@@ -1,11 +1,13 @@
 import app from "./app";
+import dbConnect from "./db/dbConnect";
+import { config } from "dotenv";
 
-app.get('/', (req, res) => {
+config();
 
-  res.send(`Hello Ajay`);
-});
-
-const port = parseInt(process.env.PORT || '3000');
-app.listen(port, () => {
-  console.log(`listening on port ${port}`);
+dbConnect().then(()=>{
+  app.listen(process.env.PORT || 3000, ()=>{
+      console.log(`Server is running on port ${process.env.PORT}`);
+  })
+}).catch((err: any)=>{
+  console.log("Database connection Error", err);
 });
