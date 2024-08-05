@@ -10,7 +10,7 @@ userRouter.post('/register', registerUser);
 userRouter.post('/login', loginUser);
 
 
-userRouter.post('/logout', logOutUser);
+userRouter.post('/logout', verifyToken, logOutUser);
 
 userRouter.get('/profile', verifyToken, userProfile);
 

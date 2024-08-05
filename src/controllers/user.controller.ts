@@ -80,7 +80,15 @@ const loginUser = asyncHandler(async(req: Request, res: Response, next: NextFunc
           maxAge: 24 * 60 * 60 * 1000 // 1 day
         });
     
-        res.json({ message: "Logged in successfully" });
+        res.json(
+            new ApiResponse("User LoggedIn SuccessFully", {
+                _id: user._id,
+                username: user.username,
+                email: user.email,
+                fullName: user.fullName,
+                token: token
+            }, 200)
+        );
       } catch (error) {
         res.status(500).json({ message: "Error in user login", error: error.message });
       }

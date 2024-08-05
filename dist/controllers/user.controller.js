@@ -119,7 +119,13 @@ var loginUser = (0, asyncHandler_1.default)(function (req, res, next) { return _
                     secure: process.env.NODE_ENV === 'production',
                     maxAge: 24 * 60 * 60 * 1000 // 1 day
                 });
-                res.json({ message: "Logged in successfully" });
+                res.json(new apiResponse_1.default("User LoggedIn SuccessFully", {
+                    _id: user._id,
+                    username: user.username,
+                    email: user.email,
+                    fullName: user.fullName,
+                    token: token
+                }, 200));
                 return [3 /*break*/, 5];
             case 4:
                 error_2 = _b.sent();
