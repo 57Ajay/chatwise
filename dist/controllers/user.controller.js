@@ -153,8 +153,12 @@ var userProfile = (0, asyncHandler_1.default)(function (req, res) { return __awa
                 return [4 /*yield*/, user_model_1.default.findById(req.user._id).select('-password')];
             case 1:
                 user = _a.sent();
-                res.json(user);
-                return [3 /*break*/, 3];
+                console.log(user);
+                if (!user) {
+                    return [2 /*return*/, res.status(404).json(new apiResponse_1.default("User not found", null, 404))];
+                }
+                ;
+                return [2 /*return*/, res.status(200).json(new apiResponse_1.default("User Profile", user, 200))];
             case 2:
                 error_3 = _a.sent();
                 res.status(500).json({ message: "Error fetching user profile", error: error_3.message });

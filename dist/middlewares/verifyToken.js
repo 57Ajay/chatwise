@@ -6,7 +6,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 var verifyToken = function (req, res, next) {
     var JWT_SECRET = process.env.JWT_SECRET;
-    var token = req.cookies.token;
+    var token;
+    if (req.cookies && req.cookies.token) {
+        token = req.cookies.token;
+    }
+    if (!token && req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
+        token = req.headers.authorization.split(' ')[1];
+    }
+    if (!token && req.query.token) {
+        token = req.query.token;
+    }
     if (!token) {
         return res.status(403).json({ message: "A token is required for authentication" });
     }

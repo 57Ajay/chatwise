@@ -104,7 +104,15 @@ const logOutUser = asyncHandler(async(req: Request, res: Response, next: NextFun
 const userProfile = asyncHandler(async (req: Request, res: Response) => {
     try {
       const user = await User.findById(req.user._id).select('-password');
-      res.json(user);
+      console.log(user);
+      if (!user) {
+        return res.status(404).json(
+          new ApiResponse("User not found", null, 404)
+        );
+      };
+      return res.status(200).json(
+        new ApiResponse("User Profile", user, 200)
+      )
     } catch (error) {
       res.status(500).json({ message: "Error fetching user profile", error: error.message });
     }
