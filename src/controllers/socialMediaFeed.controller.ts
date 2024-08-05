@@ -6,7 +6,8 @@ import Post from '../models/post.model';
 import Friends from '../models/friends.model';
 
 const getUserFeed = asyncHandler(async (req: Request, res: Response) => {
-  const userId = req.user._id; // Assuming you have middleware to set req.user
+  const userId = req.user._id; // this we will be getting from our middleware
+  // verifyToken which sets req.user to the decoded token
 
   try {
   
