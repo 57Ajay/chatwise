@@ -68,7 +68,7 @@ const loginUser = asyncHandler(async(req: Request, res: Response, next: NextFunc
         }
     
         const token = jwt.sign(
-          { id: user._id, email: user.email },
+          { _id: user._id, email: user.email },
           JWT_SECRET,
           { expiresIn: JWT_EXPIRES_IN }
         );
@@ -103,6 +103,7 @@ const logOutUser = asyncHandler(async(req: Request, res: Response, next: NextFun
 
 const userProfile = asyncHandler(async (req: Request, res: Response) => {
     try {
+      console.log("req.user:\n", req.user)
       const user = await User.findById(req.user._id).select('-password');
       console.log(user);
       if (!user) {

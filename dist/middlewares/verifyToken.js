@@ -21,7 +21,9 @@ var verifyToken = function (req, res, next) {
     }
     try {
         var decoded = jsonwebtoken_1.default.verify(token, JWT_SECRET);
+        console.log("decoded:\n", decoded);
         req.user = decoded;
+        console.log("req.user:\n", req.user);
     }
     catch (err) {
         return res.status(401).json({ message: "Invalid Token" });

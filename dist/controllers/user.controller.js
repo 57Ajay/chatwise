@@ -113,7 +113,7 @@ var loginUser = (0, asyncHandler_1.default)(function (req, res, next) { return _
                 if (!isPasswordValid) {
                     return [2 /*return*/, res.status(400).json(new apiResponse_1.default("Invalid credentials", null, 400))];
                 }
-                token = jsonwebtoken_1.default.sign({ id: user._id, email: user.email }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
+                token = jsonwebtoken_1.default.sign({ _id: user._id, email: user.email }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
                 res.cookie('token', token, {
                     httpOnly: true,
                     secure: process.env.NODE_ENV === 'production',
@@ -150,6 +150,7 @@ var userProfile = (0, asyncHandler_1.default)(function (req, res) { return __awa
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
+                console.log("req.user:\n", req.user);
                 return [4 /*yield*/, user_model_1.default.findById(req.user._id).select('-password')];
             case 1:
                 user = _a.sent();
